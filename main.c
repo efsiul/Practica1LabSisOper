@@ -4,8 +4,9 @@
 #include <sys/types.h>
 #include "linkedlist.h"
 #include "base_struct.h"
+#include "menu.h"
 
-// const int SIZE = 150000;
+const int SIZE = 150000;
 
 int main(int argc, char *argv[])
 {
@@ -13,18 +14,21 @@ int main(int argc, char *argv[])
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
+	int line_number = 0;
 
 	fp = fopen(argv[1], "r");
 	if (fp == NULL)
 		exit(EXIT_FAILURE);
 
+	// Creación de la estructura
 	item_t element;
-	int line_number = 0;
 
+	// Creación de la LL
 	linked_list_t list;
 	init_list(&list);
 
-	// item_t items[SIZE];
+	// Creación del vector
+	item_t items[SIZE];
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
 		if (line_number > 0)
@@ -75,18 +79,99 @@ int main(int argc, char *argv[])
 				}
 				i++;
 			}
-			// items[line_number - 1] = element;
+			// Una vez estraído el elemento del dataset, y haberlo construido en un nueva estructura, lo guardamos en el vector y la LL
+			items[line_number - 1] = element; // Vector
 
-			append_node(&list, element);
+			append_node(&list, element); // LL
 		}
 		line = NULL;
 		line_number++;
 	}
 
-	//print_list(&list);
+	// INTRODUCCIÓN AL MENÚ DE OPCIONES
+	// int opcion;
+	// size_t num_items = sizeof(items) / sizeof(element); // En caso de recalcular el tamaño del vector
+
+	// do
+	// {
+
+	// 	printf("SELECCIONE UNA OPCIÓN ENTRE: \n");
+	// 	printf("1. Numeral 1 - VECTOR\n");
+	// 	printf("2. Numeral 1 - LISTA LIGADA\n");
+	// 	printf("3. Numeral 2 - VECTOR\n");
+	// 	printf("4. Numeral 2 - LISTA LIGADA\n");
+	// 	printf("5. Numeral 3 - VECTOR\n");
+	// 	printf("6. Numeral 3 - LISTA LIGADA\n");
+	// 	printf("7. Numeral 4 - VECTOR\n");
+	// 	printf("8. Numeral 4 - LISTA LIGADA\n");
+	// 	printf("9. Numeral 5 - VECTOR\n");
+	// 	printf("10. Numeral 5 - LISTA LIGADA\n");
+	// 	printf("11. Numeral 6 - VECTOR\n");
+	// 	printf("12. Numeral 6 - LISTA LIGADA\n");
+	// 	printf("13. Numeral 7 - GENERAR REPORTE\n");
+	// 	printf("14. SALIR \n");
+
+	// 	scanf("%d", &opcion);
+
+	// 	switch (opcion)
+	// 	{
+	// 	case 1:
+	// 		numeral1Vector(items, num_items);
+	// 		break;
+	// 	case 2:
+	// 		numeral1LL();
+	// 		break;
+	// 	case 3:
+	// 		numeral2Vector();
+	// 		break;
+	// 	case 4:
+	// 		numeral2LL();
+	// 		break;
+	// 	case 5:
+	// 		numeral3Vector();
+	// 		break;
+	// 	case 6:
+	// 		numeral3LL();
+	// 		break;
+	// 	case 7:
+	// 		numeral4Vector();
+	// 		break;
+	// 	case 8:
+	// 		numeral4LL();
+	// 		break;
+	// 	case 9:
+	// 		numeral5Vector();
+	// 		break;
+
+	// 	case 10:
+	// 		numeral15LL();
+	// 		break;
+	// 	case 11:
+	// 		numeral6Vector();
+	// 		break;
+
+	// 	case 12:
+	// 		numeral6LL();
+	// 		break;
+
+	// 	case 13:
+	// 		generarReporte();
+	// 		break;
+
+	// 	case 14:
+	// 		printf("Saliendo del programa...\n");
+	// 		break;
+
+	// 	default:
+	// 		printf("ERROR. Opcion Inválida\n");
+	// 	}
+	// } while (opcion != 14);
+
+	// Si deseo imprimir toda la ListaL
+	// print_list(&list);
 	report_by_city(list.head);
 	printf("--------------------------------------------------\n");
-	printf("el promedio de ingreso es %.2f\n", avg_income_by_city_age(&list,"Dallas", 20, 58));
+	printf("el promedio de ingreso es %.2f\n", avg_income_by_city_age(&list, "Dallas", 20, 58));
 	printf("--------------------------------------------------\n");
 	printf("La probabilidad de estar enfermo a tal edad es: %.2f\n", probability_ill(list.head, 30));
 
