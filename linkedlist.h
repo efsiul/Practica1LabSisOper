@@ -21,5 +21,6 @@ void print_list(linked_list_t *list);
 void report_by_city(node_t *head);
 float avg_income_by_city_age(linked_list_t* list, char* city_name, int min_age, int max_age);
 float probability_ill(node_t *head, int age);
+void get_element_by_id(linked_list_t *list, int id);
 
 #endif
