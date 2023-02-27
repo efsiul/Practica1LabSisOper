@@ -75,23 +75,27 @@ void report_by_city(node_t *head)
 en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 */
 
-float avg_income_by_city_age(linked_list_t* list, char* city_name, int min_age, int max_age) {
+float avg_income_by_city_age(linked_list_t *list, char *city_name, int min_age, int max_age)
+{
     int total_income = 0;
     int count = 0;
 
     // Validar si la ciudad es válida
     city_t city = get_city_t(city_name);
-    if (city == E) {
+    if (city == E)
+    {
         printf("Invalid city name\n");
         return -1;
     }
 
     // Iterar sobre todos los nodos de la lista enlazada
-    node_t* current = list->head;
-    while (current != NULL) {
+    node_t *current = list->head;
+    while (current != NULL)
+    {
         // Seleccionar aquellos que cumplan con las condiciones de edad y ciudad
         item_t data = current->data;
-        if (data.city == city && data.age >= min_age && data.age <= max_age) {
+        if (data.city == city && data.age >= min_age && data.age <= max_age)
+        {
             total_income += data.income;
             count++;
         }
@@ -99,9 +103,12 @@ float avg_income_by_city_age(linked_list_t* list, char* city_name, int min_age, 
     }
 
     // Calcular el promedio de ingresos
-    if (count > 0) {
-        return (float) total_income / count;
-    } else {
+    if (count > 0)
+    {
+        return (float)total_income / count;
+    }
+    else
+    {
         printf("No people found for the given arguments\n");
         return -1;
     }
@@ -110,16 +117,19 @@ float avg_income_by_city_age(linked_list_t* list, char* city_name, int min_age, 
 float probability_ill(node_t *head, int age)
 {
     node_t *current = head;
-    int count=0;
-    int ill=0;
+    int count = 0;
+    int ill = 0;
 
     // Iterar sobre todos los nodos de la lista enlazada
-    while(current != NULL){
+    while (current != NULL)
+    {
         // Seleccionar aquellos que cumplan con las condiciones
         item_t data = current->data;
-        if(data.age>=age){
+        if (data.age >= age)
+        {
             count++;
-            if(data.illness == true){
+            if (data.illness == true)
+            {
                 ill++;
             }
         }
@@ -127,22 +137,32 @@ float probability_ill(node_t *head, int age)
     }
 
     // Calcular probabilidad
-    if(count>0){
-        return (float) ill / count*100;
-    }else{
+    if (count > 0)
+    {
+        return (float)ill / count * 100;
+    }
+    else
+    {
         printf("No people found for the given argument\n");
         return -1;
     }
-
 }
 
+// Obtener elemento de la lista enlazada por su ID
+void get_element_by_id(linked_list_t *list, int id)
+{
 
+    node_t *current = list->head;
+    int count = 0;
 
-// int main()
-// {
-//     item_t person = {1, get_city_t("New York City"), 25, get_gender_t("Male"), 50000, get_illness_t("No")};
-//     linked_list_t list;
-//     init_list(&list);
-//     append_node(&list, person);
-//     print_list(&list);
-// }
+    while (current != NULL && count < id-1)
+    {
+        current = current->next;
+        count++;
+    }
+
+    printf("ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
+           current->data.id, city_names[current->data.city], current->data.age,
+           gender_names[current->data.gender], current->data.income,
+           illness_values[current->data.illness]);
+}
