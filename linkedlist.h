@@ -19,5 +19,7 @@ node_t *create_node(item_t data);
 void append_node(linked_list_t *list, item_t data);
 void print_list(linked_list_t *list);
 void report_by_city(node_t *head);
+float avg_income_by_city_age(linked_list_t* list, char* city_name, int min_age, int max_age);
+float probability_ill(node_t *head, int age);
 
 #endif

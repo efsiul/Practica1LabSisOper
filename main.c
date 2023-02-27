@@ -20,14 +20,14 @@ int main(int argc, char *argv[])
 	if (fp == NULL)
 		exit(EXIT_FAILURE);
 
-	//Creación de la estructura
+	// Creación de la estructura
 	item_t element;
-	
-	//Creación de la LL
+
+	// Creación de la LL
 	linked_list_t list;
 	init_list(&list);
-	
-	//Creación del vector
+
+	// Creación del vector
 	item_t items[SIZE];
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
@@ -79,10 +79,10 @@ int main(int argc, char *argv[])
 				}
 				i++;
 			}
-			//Una vez estraído el elemento del dataset, y haberlo construido en un nueva estructura, lo guardamos en el vector y la LL
-			items[line_number - 1] = element;//Vector
+			// Una vez estraído el elemento del dataset, y haberlo construido en un nueva estructura, lo guardamos en el vector y la LL
+			items[line_number - 1] = element; // Vector
 
-			append_node(&list, element);//LL
+			append_node(&list, element); // LL
 		}
 		line = NULL;
 		line_number++;
@@ -159,8 +159,6 @@ int main(int argc, char *argv[])
 		}
 	}while (opcion != 3);
 		
-
-
 			fclose(fp);
 			if (line)
 				free(line);
