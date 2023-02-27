@@ -185,6 +185,11 @@ int main(int argc, char *argv[])
 			
 		}
 	}while(opcion!=14);
+	report_by_city(list.head);
+	printf("--------------------------------------------------\n");
+	printf("el promedio de ingreso es %.2f\n", avg_income_by_city_age(&list,"Dallas", 20, 58));
+	printf("--------------------------------------------------\n");
+	printf("La probabilidad de estar enfermo a tal edad es: %.2f\n", probability_ill(list.head, 30));
 
 	fclose(fp);
 	if (line)
