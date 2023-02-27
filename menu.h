@@ -2,6 +2,7 @@
 #define __MENU_H_
 #include "base_struct.h"
 
+void selectMenu();
 void numeral1Vector(item_t *, size_t num_items);
 void numeral1LL();
 void numeral2Vector();
