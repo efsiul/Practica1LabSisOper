@@ -87,96 +87,80 @@ int main(int argc, char *argv[])
 		line = NULL;
 		line_number++;
 	}
+	
+	/*
+	//Si deseo imprimir todo el vector
+	
+	for (int i = 0; i < SIZE; i++) {
+  	printf("Imprimiendo el sujeto:%d\n", i+1);
+	printf("id= %d\n", items[i].id);
+	printf("city= %s\n", city_names[items[i].city]);
+	printf("Gender= %s\n", gender_names[items[i].gender]);
+	printf("Age = %d\n", items[i].age);
+	printf("Income %d\n", items[i].income);
+	printf("Illness = %s\n", illness_values[items[i].illness]);
+	printf("-----------------------------------------------------\n\n");
+	}
+	*/
+	
+	//Si deseo imprimir toda la ListaL
+	//print_list(&list);
+	
+	//INTRODUCCIÓN AL MENÚ DE OPCIONES
+	int opcion;
+	char *submenu = malloc(12);
+	size_t num_items = sizeof(items) / sizeof(element);//En caso de recalcular el tamaño del vector
+	
+	do{
+		printf("     MENU PRINCIPAL\n"\
+		"\n"\
+		"################################\n"\
+		"#    SELECCIONE UNA OPCIÓN     #\n"\
+		"################################\n"
+		"\n");
+		printf("1. Menu para trabajar con Vectores \n");
+		printf("2. Menu para trabajar con Listas Ligadas \n");
+		printf("3. SALIR \n");
 
-	// INTRODUCCIÓN AL MENÚ DE OPCIONES
-	// int opcion;
-	// size_t num_items = sizeof(items) / sizeof(element); // En caso de recalcular el tamaño del vector
+		scanf("%d", &opcion);
+		if (opcion==1){
+			strcpy(submenu, "Vectores");
+		}
+		else{
+			strcpy(submenu, "ListaLigada");
+		}
 
-	// do
-	// {
-
-	// 	printf("SELECCIONE UNA OPCIÓN ENTRE: \n");
-	// 	printf("1. Numeral 1 - VECTOR\n");
-	// 	printf("2. Numeral 1 - LISTA LIGADA\n");
-	// 	printf("3. Numeral 2 - VECTOR\n");
-	// 	printf("4. Numeral 2 - LISTA LIGADA\n");
-	// 	printf("5. Numeral 3 - VECTOR\n");
-	// 	printf("6. Numeral 3 - LISTA LIGADA\n");
-	// 	printf("7. Numeral 4 - VECTOR\n");
-	// 	printf("8. Numeral 4 - LISTA LIGADA\n");
-	// 	printf("9. Numeral 5 - VECTOR\n");
-	// 	printf("10. Numeral 5 - LISTA LIGADA\n");
-	// 	printf("11. Numeral 6 - VECTOR\n");
-	// 	printf("12. Numeral 6 - LISTA LIGADA\n");
-	// 	printf("13. Numeral 7 - GENERAR REPORTE\n");
-	// 	printf("14. SALIR \n");
-
-	// 	scanf("%d", &opcion);
-
-	// 	switch (opcion)
-	// 	{
-	// 	case 1:
-	// 		numeral1Vector(items, num_items);
-	// 		break;
-	// 	case 2:
-	// 		numeral1LL();
-	// 		break;
-	// 	case 3:
-	// 		numeral2Vector();
-	// 		break;
-	// 	case 4:
-	// 		numeral2LL();
-	// 		break;
-	// 	case 5:
-	// 		numeral3Vector();
-	// 		break;
-	// 	case 6:
-	// 		numeral3LL();
-	// 		break;
-	// 	case 7:
-	// 		numeral4Vector();
-	// 		break;
-	// 	case 8:
-	// 		numeral4LL();
-	// 		break;
-	// 	case 9:
-	// 		numeral5Vector();
-	// 		break;
-
-	// 	case 10:
-	// 		numeral15LL();
-	// 		break;
-	// 	case 11:
-	// 		numeral6Vector();
-	// 		break;
-
-	// 	case 12:
-	// 		numeral6LL();
-	// 		break;
-
-	// 	case 13:
-	// 		generarReporte();
-	// 		break;
-
-	// 	case 14:
-	// 		printf("Saliendo del programa...\n");
-	// 		break;
-
-	// 	default:
-	// 		printf("ERROR. Opcion Inválida\n");
-	// 	}
-	// } while (opcion != 14);
-
-	// Si deseo imprimir toda la ListaL
-	// print_list(&list);
-	report_by_city(list.head);
-	printf("--------------------------------------------------\n");
-	printf("el promedio de ingreso es %.2f\n", avg_income_by_city_age(&list, "Dallas", 20, 58));
-	printf("--------------------------------------------------\n");
-	printf("La probabilidad de estar enfermo a tal edad es: %.2f\n", probability_ill(list.head, 30));
-
-	fclose(fp);
-	if (line)
-		free(line);
-	exit(EXIT_SUCCESS);
+		switch (opcion)
+		{
+			
+			case 1:
+				printf("\n"\
+				"####################################\n"\
+				"#           MENU VECTORES          #\n"\
+				"####################################\n"\
+				"\n"\
+				);
+				selectMenu(submenu, items, num_items);
+				break;
+			case 2:
+				printf("\n"\
+				"####################################\n"\
+				"#        MENU LISTAS LIGADAS       #\n"\
+				"####################################\n"\
+				"\n"\
+				);
+				selectMenu(submenu, items, num_items);
+				break;
+			case 3:
+				printf("Saliendo del programa...\n");
+				break;
+			default:
+				printf("ERROR. Opcion Inválida\n");
+		}
+	}while (opcion != 3);
+		
+			fclose(fp);
+			if (line)
+				free(line);
+			exit(EXIT_SUCCESS);
 }
