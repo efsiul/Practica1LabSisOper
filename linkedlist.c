@@ -37,9 +37,9 @@ void append_node(linked_list_t *list, item_t data)
 }
 
 // Imprimir los elementos de la lista enlazada
-void print_list(linked_list_t *list)
+void print_list(node_t *head)
 {
-    node_t *current = list->head;
+    node_t *current = head;
     while (current != NULL)
     {
         printf("ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
@@ -75,7 +75,7 @@ void report_by_city(node_t *head)
 en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 */
 
-float avg_income_by_city_age(linked_list_t *list, char *city_name, int min_age, int max_age)
+float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age)
 {
     int total_income = 0;
     int count = 0;
@@ -89,7 +89,7 @@ float avg_income_by_city_age(linked_list_t *list, char *city_name, int min_age, 
     }
 
     // Iterar sobre todos los nodos de la lista enlazada
-    node_t *current = list->head;
+    node_t *current = head;
     while (current != NULL)
     {
         // Seleccionar aquellos que cumplan con las condiciones de edad y ciudad
@@ -149,13 +149,13 @@ float probability_ill(node_t *head, int age)
 }
 
 // Obtener elemento de la lista enlazada por su ID
-void get_element_by_id(linked_list_t *list, int id)
+void get_element_by_id(node_t *head, int id)
 {
 
-    node_t *current = list->head;
+    node_t *current = head;
     int count = 0;
 
-    while (current != NULL && count < id-1)
+    while (current != NULL && count < id - 1)
     {
         current = current->next;
         count++;
@@ -165,4 +165,57 @@ void get_element_by_id(linked_list_t *list, int id)
            current->data.id, city_names[current->data.city], current->data.age,
            gender_names[current->data.gender], current->data.income,
            illness_values[current->data.illness]);
+}
+
+// Insertar un nuevo elemento en la mitad
+void inser_in_half(node_t *head, item_t data)
+{
+    node_t *current, *previous;
+    int half = 75000;
+    int count = 0;
+
+    current = head;
+
+    while (current != NULL && count < half - 1)
+    {
+        previous = current;
+        current = current->next;
+        count++;
+    }
+    data.id=half;
+    node_t *new_node = create_node(data);
+    previous->next = new_node;
+    new_node->next = current;
+
+    // Recalcular id's de elementos posteriores
+    while (current != NULL)
+    {
+        current->data.id = current->data.id + 1;
+        current = current->next;
+    }
+}
+
+void report_by_city_age(node_t *head, int age)
+{
+    int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
+    node_t *current = head;
+
+    // Recorre la lista y aumenta el contador de la ciudad correspondiente por cada nodo
+    while (current != NULL)
+    {
+        if (current->data.age == age)
+        {
+            count[current->data.city]++;
+            current = current->next;
+        }else{
+            current = current->next;
+        }
+    }
+
+    // Imprime el reporte
+    printf("Report of %d years old person by City:\n", age);
+    for (int i = 0; i <= 8; i++)
+    {
+        printf("%s: %d\n", city_names[i], count[i]);
+    }
 }
