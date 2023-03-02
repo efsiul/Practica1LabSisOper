@@ -1,1 +1,11 @@
-Tiempo de ejecución para el Numeral 1 - VECTOR, es de: 0.584339000 segundos.
+Dallas: 19707
+New York City: 50307
+Los Angeles: 32173
+Mountain View: 14219
+Boston: 8301
+Washington D.C.: 8120
+San Diego: 4881
+Austin: 12292
+Error: 0
+Tiempo de ejecución para el Numeral 1 - LL, es de: 0.010640000 segundos.
+----------------------------------------------------

@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include "linkedlist.h"
 #include "base_struct.h"
+#include "vector_struct.h"
 #include "menu.h"
 
 const int SIZE = 150000;
@@ -106,6 +107,8 @@ int main(int argc, char *argv[])
 	//Si deseo imprimir toda la ListaL
 	//print_list(&list);
 	
+
+
 	//INTRODUCCIÓN AL MENÚ DE OPCIONES
 	int opcion;
 	char *submenu = malloc(12);
@@ -140,7 +143,7 @@ int main(int argc, char *argv[])
 				"####################################\n"\
 				"\n"\
 				);
-				selectMenu(submenu, items, num_items);
+				selectMenu(submenu, items, num_items, &list);
 				break;
 			case 2:
 				printf("\n"\
@@ -149,7 +152,7 @@ int main(int argc, char *argv[])
 				"####################################\n"\
 				"\n"\
 				);
-				selectMenu(submenu, items, num_items);
+				selectMenu(submenu, items, num_items, &list);
 				break;
 			case 3:
 				printf("Saliendo del programa...\n");
