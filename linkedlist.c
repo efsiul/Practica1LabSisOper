@@ -98,7 +98,7 @@ void report_by_city(node_t *head)
 en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 */
 
-float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age)
+void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age)
 {   
     inicio=clock();
     FILE *fp = fopen("reporte.txt", "a");
@@ -112,7 +112,7 @@ float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max
     if (city == E)
     {
         printf("Invalid city name\n");
-        return -1;
+
     }
 
     // Iterar sobre todos los nodos de la lista enlazada
@@ -135,12 +135,13 @@ float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max
         avg=(float)total_income / count;
         printf("El promedio de ingresos dado la ciudad de: %s, y un intervalo de edad de %d a %d años es de: %.2f\n", city_name, min_age, max_age, avg);
         fprintf(fp, "El promedio de ingresos dado la ciudad de: %s, y un intervalo de edad de %d a %d años es de: %.2f\n", city_name, min_age, max_age, avg);
-        return avg;
+        
     }
     else
     {
         printf("No people found for the given arguments\n");
-        return -1;
+        fprintf(fp, "No people found for the given arguments\n");
+        
     }
 
     fin=clock();
@@ -153,7 +154,7 @@ float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max
 
 }
 
-float probability_ill(node_t *head, int age)
+void probability_ill(node_t *head, int age)
 {   
     inicio=clock();
     FILE *fp = fopen("reporte.txt", "a");
@@ -185,13 +186,14 @@ float probability_ill(node_t *head, int age)
         prob=(float)ill / count * 100;
         printf("La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f\n", age, prob);
         fprintf(fp, "La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f\n", age, prob);
-        return prob;
+        
         
     }
     else
     {
         printf("No people found for the given argument\n");
-        return -1;
+        fprintf(fp, "No people found for the given arguments\n");
+        
     }
 
     fin=clock();
@@ -267,8 +269,8 @@ void inser_in_half(node_t *head, item_t data)
         current = current->next;
     }
 
-    printf("Dato insertado correctamente");
-    fprintf(fp, "Dato insertado correctamente");
+    printf("Dato insertado correctamente\n");
+    fprintf(fp, "Dato insertado correctamente\n");
 
     fin=clock();
     tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;

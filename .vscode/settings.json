@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "linkedlist.h": "c",
-        "limits": "c",
-        "base_struct.h": "c"
-    }
-}

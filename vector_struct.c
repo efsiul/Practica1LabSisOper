@@ -43,36 +43,34 @@ void report_by_city_v(item_t *items, size_t num_items)
         if(strcmp(city_names[items[i].city],"Not found")==0){
             count[8]++;
             }
-
-        printf("\nla cantidad de personas por cada ciudad: \n");
-        printf("\nDallas:  %d" , count[0]);
-        printf("\nNew York City: %d", count[1]);
-        printf("\nLos Angeles: %d", count[2]);
-        printf("\nMountain View: %d", count[3]);
-        printf("\nBoston: %d", count[4]);
-        printf("\nWashington D.C.: %d", count[5]);
-        printf("\nSan Diego: %d", count[6]);
-        printf("\nAustin: %d", count[7]);
-        printf("\nError: %d", count[8]);
-
-        fprintf(fp, "\nla cantidad de personas por cada ciudad: \n");
-        fprintf(fp, "\nDallas:  %d" , count[0]);
-        fprintf(fp, "\nNew York City: %d", count[1]);
-        fprintf(fp, "\nLos Angeles: %d", count[2]);
-        fprintf(fp, "\nMountain View: %d", count[3]);
-        fprintf(fp, "\nBoston: %d", count[4]);
-        fprintf(fp, "\nWashington D.C.: %d", count[5]);
-        fprintf(fp, "\nSan Diego: %d", count[6]);
-        fprintf(fp, "\nAustin: %d", count[7]);
-        fprintf(fp, "\nError: %d", count[8]);
-
-
     }   
+    printf("La cantidad de personas por cada ciudad:");
+    printf("\nDallas:  %d" , count[0]);
+    printf("\nNew York City: %d", count[1]);
+    printf("\nLos Angeles: %d", count[2]);
+    printf("\nMountain View: %d", count[3]);
+    printf("\nBoston: %d", count[4]);
+    printf("\nWashington D.C.: %d", count[5]);
+    printf("\nSan Diego: %d", count[6]);
+    printf("\nAustin: %d", count[7]);
+    printf("\nError: %d \n", count[8]);
+
+    fprintf(fp, "La cantidad de personas por cada ciudad:");
+    fprintf(fp, "\nDallas:  %d" , count[0]);
+    fprintf(fp, "\nNew York City: %d", count[1]);
+    fprintf(fp, "\nLos Angeles: %d", count[2]);
+    fprintf(fp, "\nMountain View: %d", count[3]);
+    fprintf(fp, "\nBoston: %d", count[4]);
+    fprintf(fp, "\nWashington D.C.: %d", count[5]);
+    fprintf(fp, "\nSan Diego: %d", count[6]);
+    fprintf(fp, "\nAustin: %d", count[7]);
+    fprintf(fp, "\nError: %d\n", count[8]);
+
     fin1=clock();
     tiempo1=(double)(fin1 - inicio1)/ CLOCKS_PER_SEC;
     
-    printf("tiempo de ejecución para el Numeral 1 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 1 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 1 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 1 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
 
     fclose(fp);
 }
@@ -81,7 +79,7 @@ void report_by_city_v(item_t *items, size_t num_items)
 en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 */
 
-float avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name, int min_age, int max_age)
+void avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name, int min_age, int max_age)
 {   
     inicio1=clock();
     FILE *fp = fopen("reporte.txt", "a");
@@ -103,24 +101,25 @@ float avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name,
     if (count_people > 0) {
 
         mean_income = sum/count_people;
-        printf("El promedio de ingresos de las personas de la ciudad de %s que tienen entre %d y %d es igual: %.2f",
+        printf("El promedio de ingresos de las personas de la ciudad de %s que tienen entre %d y %d es igual: %.2f\n",
         city_name, min_age, max_age, mean_income);
-        fprintf(fp, "El promedio de ingresos de las personas de la ciudad de %s que tienen entre %d y %d es igual: %.2f",
+        fprintf(fp, "El promedio de ingresos de las personas de la ciudad de %s que tienen entre %d y %d es igual: %.2f\n",
         city_name, min_age, max_age, mean_income);
 
     } else {
             printf("No people found for the given arguments\n");
-            return -1;
+            fprintf(fp, "No people found for the given arguments\n");
+            
     }
 
-    printf("tiempo de ejecución para el Numeral 2 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 2 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 2 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 2 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
 
     fclose(fp);
 
 }
 
-float probability_ill_v(item_t *items, size_t num_items, int age)
+void probability_ill_v(item_t *items, size_t num_items, int age)
 {   
     inicio1=clock();
     FILE *fp = fopen("reporte.txt", "a");
@@ -128,8 +127,6 @@ float probability_ill_v(item_t *items, size_t num_items, int age)
     int count_illness=0;
     int count_age=0;
 
-    printf("\nIngresa la edad");
-    scanf("%d", &age);
 
     for (int i = 0; i < num_items; i++) {
         if(items[i].age >= age){
@@ -141,16 +138,14 @@ float probability_ill_v(item_t *items, size_t num_items, int age)
         }
     }   
     
-    printf("La probabilidad de estar enfermo en la edad o mayor a %d es de: %d%%", age, (count_illness * 100) / count_age);
-    fprintf(fp, "La probabilidad de estar enfermo en la edad o mayor a %d es de: %d%%", age, (count_illness * 100) / count_age);
-
-
+    printf("La probabilidad de estar enfermo en la edad o mayor a %d es de: %d%%\n", age, (count_illness * 100) / count_age);
+    fprintf(fp, "La probabilidad de estar enfermo en la edad o mayor a %d es de: %d%%\n", age, (count_illness * 100) / count_age);
 
     fin1=clock();
     tiempo1=(double)(fin1 - inicio1)/ CLOCKS_PER_SEC;
     
-    printf("tiempo de ejecución para el Numeral 3 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 3 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 3 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 3 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
 
     fclose(fp);
 
@@ -163,25 +158,25 @@ void get_element_by_id_v(item_t *items, size_t num_items, int id)
     FILE *fp = fopen("reporte.txt", "a");
 
 
-    printf("Id consultado \n: %d",id);
-    printf("La edad: %d",items[id+1].age);
-    printf("Ciudad: %s",city_names[items[id+1].city]);
-    printf("Genero: %s",gender_names[items[id+1].gender]);
-    printf("Enfermedad: %s",illness_values[items[id+1].illness]);
-    printf("Ingresos: %d",items[id+1].income);
+    printf("Id consultado: %d\n",id);
+    printf("La edad: %d\n",items[id+1].age);
+    printf("Ciudad: %s\n",city_names[items[id+1].city]);
+    printf("Genero: %s\n",gender_names[items[id+1].gender]);
+    printf("Enfermedad: %s\n",illness_values[items[id+1].illness]);
+    printf("Ingresos: %d\n",items[id+1].income);
 
-    fprintf(fp, "Id consultado \n: %d",id);
-    fprintf(fp, "La edad: %d",items[id+1].age);
-    fprintf(fp, "Ciudad: %s",city_names[items[id+1].city]);
-    fprintf(fp, "Genero: %s",gender_names[items[id+1].gender]);
-    fprintf(fp, "Enfermedad: %s",illness_values[items[id+1].illness]);
-    fprintf(fp, "Ingresos: %d",items[id+1].income);
+    fprintf(fp, "Id consultado: %d\n",id);
+    fprintf(fp, "La edad: %d\n",items[id+1].age);
+    fprintf(fp, "Ciudad: %s\n",city_names[items[id+1].city]);
+    fprintf(fp, "Genero: %s\n",gender_names[items[id+1].gender]);
+    fprintf(fp, "Enfermedad: %s\n",illness_values[items[id+1].illness]);
+    fprintf(fp, "Ingresos: %d\n",items[id+1].income);
 
     fin1=clock();
     tiempo1=(double)(fin1 - inicio1)/ CLOCKS_PER_SEC;
     
-    printf("tiempo de ejecución para el Numeral 4 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 4 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 4 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 4 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
     
     fclose(fp);
 }
@@ -237,14 +232,14 @@ void inser_in_half_v(item_t *items, size_t num_items)
     items[75000].illness= result_illness=get_illness_t(&illness_elem);
     items[75000].income=income_elem;
 
-    printf("Dato insertado correctamente");
-    fprintf(fp, "Dato insertado correctamente");
+    printf("Dato insertado correctamente\n");
+    fprintf(fp, "Dato insertado correctamente\n");
 
     fin1=clock();
     tiempo1=(double)(fin1 - inicio1)/ CLOCKS_PER_SEC;
     
-    printf("tiempo de ejecución para el Numeral 5 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 5 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 5 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 5 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
 
     fclose(fp);
 
@@ -252,14 +247,12 @@ void inser_in_half_v(item_t *items, size_t num_items)
 
 void report_by_city_age_v(item_t *items, size_t num_items, int edad_consulta)
 {   
-    
     inicio1=clock();
     FILE *fp = fopen("reporte.txt", "a");
     
     int count_p[9]={0};
 
-    printf("\nIngresa la edad a consultar");
-        scanf("%d", &edad_consulta);
+    
         for(int i=0; i=num_items; i++){
             if(strcmp(city_names[items[i].city],"Dallas")==0){
                 if(items[i].age == edad_consulta){
@@ -317,33 +310,33 @@ void report_by_city_age_v(item_t *items, size_t num_items, int edad_consulta)
 
         }
         
-    printf("la cantidad de personas por ciudad en la edad de: %d", edad_consulta );
-    printf("Dallas %d", count_p[0]);
-    printf("New York City %d", count_p[1]);
-    printf("Los Angeles %d", count_p[2]);
-    printf("Mountain View %d", count_p[3]);
-    printf("Boston %d", count_p[4]);
+    printf("La cantidad de personas por ciudad en la edad de: %d\n", edad_consulta );
+    printf("Dallas %d\n", count_p[0]);
+    printf("New York City %d\n", count_p[1]);
+    printf("Los Angeles %d\n", count_p[2]);
+    printf("Mountain View %d\n", count_p[3]);
+    printf("Boston %d\n", count_p[4]);
     printf("Washington D.C. %d", count_p[5]);
-    printf("San Diego %d", count_p[6]);
-    printf("Austin %d", count_p[7]);
-    printf("Not found %d", count_p[8]);
+    printf("San Diego %d\n", count_p[6]);
+    printf("Austin %d\n", count_p[7]);
+    printf("Not found %d\n", count_p[8]);
 
-    fprintf(fp, "la cantidad de personas por ciudad en la edad de: %d", edad_consulta );
-    fprintf(fp, "Dallas %d", count_p[0]);
-    fprintf(fp, "New York City %d", count_p[1]);
-    fprintf(fp, "Los Angeles %d", count_p[2]);
-    fprintf(fp, "Mountain View %d", count_p[3]);
-    fprintf(fp, "Boston %d", count_p[4]);
-    fprintf(fp, "Washington D.C. %d", count_p[5]);
-    fprintf(fp, "San Diego %d", count_p[6]);
-    fprintf(fp, "Austin %d", count_p[7]);
-    fprintf(fp, "Not found %d", count_p[8]);
+    fprintf(fp, "La cantidad de personas por ciudad en la edad de: %d\n", edad_consulta );
+    fprintf(fp, "Dallas %d\n", count_p[0]);
+    fprintf(fp, "New York City %d\n", count_p[1]);
+    fprintf(fp, "Los Angeles %d\n", count_p[2]);
+    fprintf(fp, "Mountain View %d\n", count_p[3]);
+    fprintf(fp, "Boston %d\n", count_p[4]);
+    fprintf(fp, "Washington D.C. %d\n", count_p[5]);
+    fprintf(fp, "San Diego %d\n", count_p[6]);
+    fprintf(fp, "Austin %d\n", count_p[7]);
+    fprintf(fp, "Not found %d\n", count_p[8]);
 
     fin1=clock();
     tiempo1=(double)(fin1 - inicio1)/ CLOCKS_PER_SEC;
     
-    printf("tiempo de ejecución para el Numeral 6 - Vector, es de: %.9f segundos.\n", tiempo1);
-    fprintf(fp, "tiempo de ejecución para el Numeral 6 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
+    printf("Tiempo de ejecución para el Numeral 6 - Vector, es de: %.9f segundos.\n", tiempo1);
+    fprintf(fp, "Tiempo de ejecución para el Numeral 6 - Vector, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo1);
 
     fclose(fp);
 }

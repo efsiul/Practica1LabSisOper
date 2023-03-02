@@ -22,8 +22,8 @@ void print_list(node_t *head);
 node_t *get_head(linked_list_t *list);
 
 void report_by_city(node_t *head);//1
-float avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age);//2
-float probability_ill(node_t *head, int age);//3
+void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age);//2
+void probability_ill(node_t *head, int age);//3
 void get_element_by_id(node_t *head, int id);//4
 void inser_in_half(node_t *head, item_t data);//5
 void report_by_city_age(node_t *head, int age);//6
