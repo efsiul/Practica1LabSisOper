@@ -51,10 +51,12 @@ void print_list(node_t *head)
 }
 
 // Función para generar un reporte de la cantidad de personas por cada ciudad
-void report_by_city(node_t *head)
+char *report_by_city(node_t *head)
 {
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
     node_t *current = head;
+    char *buffer = malloc(300 * sizeof(char)); // Define un buffer para almacenar los datos
+    sprintf(buffer, "Report by City:\n");      // Agrega el encabezado al buffer
 
     // Recorre la lista y aumenta el contador de la ciudad correspondiente por cada nodo
     while (current != NULL)
@@ -63,12 +65,12 @@ void report_by_city(node_t *head)
         current = current->next;
     }
 
-    // Imprime el reporte
-    printf("Report by City:\n");
     for (int i = 0; i <= 8; i++)
     {
-        printf("%s: %d\n", city_names[i], count[i]);
+        sprintf(buffer + strlen(buffer), "%s: %d\n", city_names[i], count[i]);
     }
+
+    return buffer; // Retorna el buffer con los datos almacenados
 }
 
 /*Función para obtener el promedio de ingresos de todas las personas que viven
@@ -149,11 +151,13 @@ float probability_ill(node_t *head, int age)
 }
 
 // Obtener elemento de la lista enlazada por su ID
-void get_element_by_id(node_t *head, int id)
+char* get_element_by_id(node_t *head, int id)
 {
 
     node_t *current = head;
     int count = 0;
+    char *buffer = malloc(300 * sizeof(char));
+    sprintf(buffer, "the requested item is:\n"); // Agrega el encabezado al buffer
 
     while (current != NULL && count < id - 1)
     {
@@ -161,10 +165,11 @@ void get_element_by_id(node_t *head, int id)
         count++;
     }
 
-    printf("ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
+    sprintf(buffer + strlen(buffer), "ID: %u\nCity: %s\nAge: %u\nGender: %s\nIncome: %d\nIllness: %s\n",
            current->data.id, city_names[current->data.city], current->data.age,
            gender_names[current->data.gender], current->data.income,
            illness_values[current->data.illness]);
+    return buffer;
 }
 
 // Insertar un nuevo elemento en la mitad
@@ -182,7 +187,7 @@ void inser_in_half(node_t *head, item_t data)
         current = current->next;
         count++;
     }
-    data.id=half;
+    data.id = half;
     node_t *new_node = create_node(data);
     previous->next = new_node;
     new_node->next = current;
@@ -195,10 +200,12 @@ void inser_in_half(node_t *head, item_t data)
     }
 }
 
-void report_by_city_age(node_t *head, int age)
+char *report_by_city_age(node_t *head, int age)
 {
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
     node_t *current = head;
+    char *buffer = malloc(300 * sizeof(char));
+    sprintf(buffer, "Report of %d years old person by City:\n", age); // Agrega el encabezado al buffer
 
     // Recorre la lista y aumenta el contador de la ciudad correspondiente por cada nodo
     while (current != NULL)
@@ -207,15 +214,18 @@ void report_by_city_age(node_t *head, int age)
         {
             count[current->data.city]++;
             current = current->next;
-        }else{
+        }
+        else
+        {
             current = current->next;
         }
     }
 
     // Imprime el reporte
-    printf("Report of %d years old person by City:\n", age);
     for (int i = 0; i <= 8; i++)
     {
-        printf("%s: %d\n", city_names[i], count[i]);
+        sprintf(buffer + strlen(buffer), "%s: %d\n", city_names[i], count[i]);
     }
+
+    return buffer; // Retorna el buffer con los datos almacenados
 }

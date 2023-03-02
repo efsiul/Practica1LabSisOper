@@ -88,23 +88,6 @@ int main(int argc, char *argv[])
 		line_number++;
 	}
 	
-	/*
-	//Si deseo imprimir todo el vector
-	
-	for (int i = 0; i < SIZE; i++) {
-  	printf("Imprimiendo el sujeto:%d\n", i+1);
-	printf("id= %d\n", items[i].id);
-	printf("city= %s\n", city_names[items[i].city]);
-	printf("Gender= %s\n", gender_names[items[i].gender]);
-	printf("Age = %d\n", items[i].age);
-	printf("Income %d\n", items[i].income);
-	printf("Illness = %s\n", illness_values[items[i].illness]);
-	printf("-----------------------------------------------------\n\n");
-	}
-	*/
-	
-	//Si deseo imprimir toda la ListaL
-	//print_list(&list);
 	
 	//INTRODUCCIÓN AL MENÚ DE OPCIONES
 	int opcion;
