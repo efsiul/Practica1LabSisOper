@@ -148,6 +148,8 @@ int main(int argc, char *argv[])
 			selectMenu(submenu, items, num_items, &list);
 			break;
 		case 3:
+			free(items);
+			free(submenu);
 			printf("Saliendo del programa...\n");
 			break;
 		default:

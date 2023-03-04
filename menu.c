@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "menu.h"
 #include "base_struct.h"
 #include "vector_struct.h"
@@ -24,12 +25,12 @@ item_t select_data()
     scanf("%d", &tmp);
     data.city = get_city_t(ciudades[tmp - 1]);
 
-    printf("Ingrese la edad:\n");
+    printf("\nIngrese la edad:\n");
     scanf("%u", &data.age);
 
     do
     {
-        printf("Seleccione el genero: \n");
+        printf("\nSeleccione el genero: \n");
         printf("1. Male\n2. Female\n3. NO\n");
         scanf("%d", &tmp);
     } while (tmp != 1 && tmp != 2 && tmp != 3);
@@ -37,14 +38,14 @@ item_t select_data()
     data.gender = get_gender_t(genders[tmp - 1]);
     do
     {
-        printf("Seleccione un estado de enfermedad: \n");
+        printf("\nSeleccione un estado de enfermedad: \n");
         printf("1. Yes\n2. No\n3. Not defined\n");
         scanf("%d", &tmp);
     } while (tmp != 1 && tmp != 2 && tmp != 3);
 
     data.illness = get_illness_t(ill[tmp - 1]);
 
-    printf("Digile el valor de ingresos: \n");
+    printf("\nDigile el valor de ingresos: \n");
     scanf("%d", &data.income);
 
     return data;
@@ -199,8 +200,8 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
 
                 // Opción para numeral5Vector
                 printf("función para vector\n\n");
-                item_t item = select_data();
-                inser_in_half_v(items, num_items, item); // 5
+                item_t data = select_data();
+                inser_in_half_v(items, num_items, data); // 5
                 num_items++;
             }
             else
@@ -209,9 +210,8 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
 
                 printf("función para LL\n\n");
                 node_t *head_node = get_head(list);
-                item_t data;
+                item_t data = select_data();
                 inser_in_half(head_node, data); // 5
-                printf("Elemento insertado correctamente");
             }
             break;
         case 6:
@@ -247,7 +247,7 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
         case 7:
             printf("\nReporte de los eventos realizados en el programa\n");
 
-            FILE *fp = fopen("reporte.txt", "r");
+            FILE *fp = fopen(name_report, "r");
 
             fseek(fp, 0, SEEK_END); // Mover el indicador de posición al final del archivo
             long size = ftell(fp);  // Obtener la posición actual
@@ -258,10 +258,14 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
             }
             else
             {
-                printf("El reporte se genera automáticamente, puede revisar el archivo reporte.txt en el directorio raiz\n");
+                printf("El reporte se genera automáticamente, puede revisar el archivo %s en el directorio raiz\n", name_report);
             }
 
             fclose(fp);
+            time_t t = time(NULL);
+            struct tm tm = *localtime(&t);
+            sprintf(name_report, "reporte_%d-%02d-%02d_%02d-%02d-%02d.txt",
+                    tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
             break;
         default:
