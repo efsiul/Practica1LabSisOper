@@ -41,7 +41,7 @@ void append_node(linked_list_t *list, item_t data)
     }
 }
 
-//Obtener la cabeza de la lista
+// Obtener la cabeza de la lista
 node_t *get_head(linked_list_t *list)
 {
     return list->head;
@@ -63,8 +63,8 @@ void print_list(node_t *head)
 
 // Función para generar un reporte de la cantidad de personas por cada ciudad
 void report_by_city(node_t *head)
-{   
-    inicio=clock();
+{
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
@@ -78,7 +78,7 @@ void report_by_city(node_t *head)
     }
 
     // Imprime el reporte
-   
+
     printf("Report by City:\n");
     for (int i = 0; i <= 8; i++)
     {
@@ -86,9 +86,9 @@ void report_by_city(node_t *head)
         fprintf(fp, "%s: %d\n", city_names[i], count[i]);
     }
 
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 1 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 1 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
@@ -100,20 +100,19 @@ en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 */
 
 void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age)
-{   
-    inicio=clock();
+{
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     int total_income = 0;
     int count = 0;
-    float avg=0;
+    float avg = 0;
 
     // Validar si la ciudad es válida
     city_t city = get_city_t(city_name);
     if (city == E)
     {
         printf("Invalid city name\n");
-
     }
 
     // Iterar sobre todos los nodos de la lista enlazada
@@ -132,38 +131,35 @@ void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_
 
     // Calcular el promedio de ingresos
     if (count > 0)
-    {   
-        avg=(float)total_income / count;
+    {
+        avg = (float)total_income / count;
         printf("El promedio de ingresos dado la ciudad de: %s, y un intervalo de edad de %d a %d años es de: %.2f\n", city_name, min_age, max_age, avg);
         fprintf(fp, "El promedio de ingresos dado la ciudad de: %s, y un intervalo de edad de %d a %d años es de: %.2f\n", city_name, min_age, max_age, avg);
-        
     }
     else
     {
         printf("No people found for the given arguments\n");
         fprintf(fp, "No people found for the given arguments\n");
-        
     }
 
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 2 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 2 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
     fclose(fp);
-
 }
 
 void probability_ill(node_t *head, int age)
-{   
-    inicio=clock();
+{
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     node_t *current = head;
     int count = 0;
     int ill = 0;
-    float prob=0;
+    float prob = 0;
 
     // Iterar sobre todos los nodos de la lista enlazada
     while (current != NULL)
@@ -183,34 +179,30 @@ void probability_ill(node_t *head, int age)
 
     // Calcular probabilidad
     if (count > 0)
-    {   
-        prob=(float)ill / count * 100;
-        printf("La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f\n", age, prob);
-        fprintf(fp, "La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f\n", age, prob);
-        
-        
+    {
+        prob = (float)ill*100 / count;
+        printf("La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f%%\n", age, prob);
+        fprintf(fp, "La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f%%\n", age, prob);
     }
     else
     {
         printf("No people found for the given argument\n");
         fprintf(fp, "No people found for the given arguments\n");
-        
     }
 
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 3 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 3 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
     fclose(fp);
-
 }
 
 // Obtener elemento de la lista enlazada por su ID
 void get_element_by_id(node_t *head, int id)
 {
-    inicio=clock();
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     node_t *current = head;
@@ -227,23 +219,23 @@ void get_element_by_id(node_t *head, int id)
            gender_names[current->data.gender], current->data.income,
            illness_values[current->data.illness]);
     fprintf(fp, "ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
-           current->data.id, city_names[current->data.city], current->data.age,
-           gender_names[current->data.gender], current->data.income,
-           illness_values[current->data.illness]);
+            current->data.id, city_names[current->data.city], current->data.age,
+            gender_names[current->data.gender], current->data.income,
+            illness_values[current->data.illness]);
 
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 4 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 4 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
-    
+
     fclose(fp);
 }
 
 // Insertar un nuevo elemento en la mitad
 void inser_in_half(node_t *head, item_t data)
-{   
-    inicio=clock();
+{
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     node_t *current, *previous;
@@ -258,7 +250,7 @@ void inser_in_half(node_t *head, item_t data)
         current = current->next;
         count++;
     }
-    data.id=half;
+    data.id = half;
     node_t *new_node = create_node(data);
     previous->next = new_node;
     new_node->next = current;
@@ -273,19 +265,18 @@ void inser_in_half(node_t *head, item_t data)
     printf("Dato insertado correctamente\n");
     fprintf(fp, "Dato insertado correctamente\n");
 
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 5 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 5 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
     fclose(fp);
-
 }
 
 void report_by_city_age(node_t *head, int age)
-{   
-    inicio=clock();
+{
+    inicio = clock();
     FILE *fp = fopen(name_report, "a");
 
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
@@ -298,7 +289,9 @@ void report_by_city_age(node_t *head, int age)
         {
             count[current->data.city]++;
             current = current->next;
-        }else{
+        }
+        else
+        {
             current = current->next;
         }
     }
@@ -312,9 +305,9 @@ void report_by_city_age(node_t *head, int age)
         printf("%s: %d\n", city_names[i], count[i]);
         fprintf(fp, "%s: %d\n", city_names[i], count[i]);
     }
-    fin=clock();
-    tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
-    
+    fin = clock();
+    tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
+
     printf("Tiempo de ejecución para el Numeral 6 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 6 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
