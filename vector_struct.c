@@ -123,7 +123,7 @@ void avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name, 
 void probability_ill_v(item_t *items, size_t num_items, int age)
 {   
     inicio1=clock();
-    FILE *fp = fopen(name_report "a");
+    FILE *fp = fopen(name_report, "a");
     
     int count_illness=0;
     int count_age=0;
@@ -318,7 +318,7 @@ void inser_in_half_v(item_t *items, size_t num_items)
 void report_by_city_age_v(item_t *items, size_t num_items, int edad_consulta)
 {   
     inicio1=clock();
-    FILE *fp = fopen(name_report "a");
+    FILE *fp = fopen(name_report, "a");
     
     int count_p[9]={0};
 
