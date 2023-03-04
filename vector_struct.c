@@ -150,7 +150,7 @@ void inser_in_half_v(item_t *items, size_t num_items, item_t element)
     items = realloc(items, (num_items + 1) * sizeof(item_t));
     memmove(&items[75000], &items[74999], (num_items - 74999) * sizeof(item_t));
 
-    for (int i = 150000; i >= 75000; i--)
+    for (int i = num_items; i >= 75000; i--)
     {
         items[i].id = items[i].id + 1;
     }
