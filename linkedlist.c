@@ -180,7 +180,7 @@ void probability_ill(node_t *head, int age)
     // Calcular probabilidad
     if (count > 0)
     {
-        prob = (float)ill*100 / count;
+        prob = (float)ill * 100 / count;
         printf("La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f%%\n", age, prob);
         fprintf(fp, "La probabilidad de estar enfermo dado una edad de: %d años, es de:%.2f%%\n", age, prob);
     }
@@ -214,11 +214,11 @@ void get_element_by_id(node_t *head, int id)
         count++;
     }
 
-    printf("ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
+    printf("ID consultado: %u\nCity: %s\nAge: %u\nGender: %s\nIncome: %d\nIllness: %s\n",
            current->data.id, city_names[current->data.city], current->data.age,
            gender_names[current->data.gender], current->data.income,
            illness_values[current->data.illness]);
-    fprintf(fp, "ID: %u, City: %s, Age: %u, Gender: %s, Income: %d, Illness: %s\n",
+    fprintf(fp, "ID consultado: %u\nCity: %s\nAge: %u\nGender: %s\nIncome: %d\nIllness: %s\n",
             current->data.id, city_names[current->data.city], current->data.age,
             gender_names[current->data.gender], current->data.income,
             illness_values[current->data.illness]);
@@ -226,7 +226,7 @@ void get_element_by_id(node_t *head, int id)
     fin = clock();
     tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
 
-    printf("Tiempo de ejecución para el Numeral 4 - LL, es de: %.9f segundos.\n", tiempo);
+    printf("\nTiempo de ejecución para el Numeral 4 - LL, es de: %.9f segundos.\n", tiempo);
     fprintf(fp, "Tiempo de ejecución para el Numeral 4 - LL, es de: %.9f segundos.\n----------------------------------------------------\n", tiempo);
 
     fclose(fp);
@@ -262,8 +262,16 @@ void inser_in_half(node_t *head, item_t data)
         current = current->next;
     }
 
-    printf("Dato insertado correctamente\n");
-    fprintf(fp, "Dato insertado correctamente\n");
+    printf("Elemento insertado correctamente con los siguientes datos:\n");
+    printf("ID: %u\nCity: %s\nAge: %u\nGender: %s\nIncome: %d\nIllness: %s\n",
+           data.id, city_names[data.city], data.age,
+           gender_names[data.gender], data.income,
+           illness_values[data.illness]);
+    fprintf(fp, "Elemento insertado correctamente con los siguientes datos:\n");
+    fprintf(fp, "ID: %u\nCity: %s\nAge: %u\nGender: %s\nIncome: %d\nIllness: %s\n",
+            data.id, city_names[data.city], data.age,
+            gender_names[data.gender], data.income,
+            illness_values[data.illness]);
 
     fin = clock();
     tiempo = (double)(fin - inicio) / CLOCKS_PER_SEC;
@@ -297,8 +305,8 @@ void report_by_city_age(node_t *head, int age)
     }
 
     // Imprime el reporte
-    printf("Report of %d years old person by City:\n", age);
-    fprintf(fp, "Report of %d years old person by City:\n", age);
+    printf("\nNúmero de personas de %d años por ciudad:\n", age);
+    fprintf(fp, "\nNúmero de personas de %d años por ciudad:\n", age);
 
     for (int i = 0; i <= 8; i++)
     {

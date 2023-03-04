@@ -105,8 +105,8 @@ void probability_ill_v(item_t *items, size_t num_items, int age)
         }
     }
 
-    printf("\nLa probabilidad de estar enfermo en la edad o mayor a %d es de: %.2f%%\n", age,(float) (count_illness * 100) / count_age);
-    fprintf(fp, "La probabilidad de estar enfermo en la edad o mayor a %d es de: %.2f%%\n", age, (float) (count_illness * 100) / count_age);
+    printf("\nLa probabilidad de estar enfermo en la edad o mayor a %d es de: %.2f%%\n", age, (float)(count_illness * 100) / count_age);
+    fprintf(fp, "La probabilidad de estar enfermo en la edad o mayor a %d es de: %.2f%%\n", age, (float)(count_illness * 100) / count_age);
 
     fin1 = clock();
     tiempo1 = (double)(fin1 - inicio1) / CLOCKS_PER_SEC;
@@ -156,12 +156,12 @@ void inser_in_half_v(item_t *items, size_t num_items, item_t element)
     }
     items[74999] = element;
 
-    printf("\nElemento insertado correctamente\n");
+    printf("\nElemento insertado correctamente con los siguientes datos:\n");
     printf("Id: %d\nEdad: %d\nCiudad: %s\nGenero: %s\nEnfermedad: %s\nIngresos: %d\n",
            element.id, element.age, city_names[element.city], gender_names[element.gender],
            illness_values[element.illness], element.income);
 
-    fprintf(fp, "Elemento insertado correctamente\n");
+    fprintf(fp, "Elemento insertado correctamente con los siguientes datos:\n");
     fprintf(fp, "Id: %d\nEdad: %d\nCiudad: %s\nGenero: %s\nEnfermedad: %s\nIngresos: %d\n",
             element.id, element.age, city_names[element.city], gender_names[element.gender],
             illness_values[element.illness], element.income);
@@ -187,7 +187,8 @@ void report_by_city_age_v(item_t *items, size_t num_items, int edad_consulta)
         }
     }
 
-    printf("\nLa cantidad de personas por ciudad que cumplen con la condicion dada es: \n");
+    printf("\número de personas de %d años por ciudad:\n", edad_consulta);
+    fprintf(fp, "\nNúmero de personas de %d años por ciudad:\n", edad_consulta);
     for (int i = 0; i <= 8; i++)
     {
         printf("%s: %d\n", city_names[i], count_p[i]);
