@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 #include "menu.h"
 #include "base_struct.h"
 #include "vector_struct.h"
@@ -254,20 +255,16 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
             printf("\nReporte de los eventos realizados en el programa\n");
 
             FILE *fp = fopen(name_report, "r");
-
-            fseek(fp, 0, SEEK_END); // Mover el indicador de posición al final del archivo
-            long size = ftell(fp);  // Obtener la posición actual
-
-            if (size == 0)
+            if (fp != NULL)
             {
-                printf("Error. Todavía no se puede generar un reporte\n");
+                printf("El reporte se genera automáticamente, puede revisar el archivo %s en el directorio raiz\n", name_report);
+                fclose(fp);
             }
             else
             {
-                printf("El reporte se genera automáticamente, puede revisar el archivo %s en el directorio raiz\n", name_report);
+                printf("\nNo hay información para reportar\n");
             }
 
-            fclose(fp);
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
             sprintf(name_report, "reporte_%d-%02d-%02d_%02d-%02d-%02d.txt",
