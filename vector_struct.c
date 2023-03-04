@@ -4,6 +4,7 @@
 #include <time.h>
 #include <sys/types.h>
 #include "base_struct.h"
+#include "report.h"
 
 clock_t inicio1, fin1;
 double tiempo1;
@@ -12,7 +13,7 @@ double tiempo1;
 void report_by_city_v(item_t *items, size_t num_items)
 {   
     inicio1=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
     
     int count[9] = {0};
     for (int i = 0; i < num_items; i++) {
@@ -82,7 +83,7 @@ en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 void avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name, int min_age, int max_age)
 {   
     inicio1=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     
     int count_people=0; 
@@ -122,7 +123,7 @@ void avg_income_by_city_age_v(item_t *items, size_t num_items, char *city_name, 
 void probability_ill_v(item_t *items, size_t num_items, int age)
 {   
     inicio1=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report "a");
     
     int count_illness=0;
     int count_age=0;
@@ -155,7 +156,7 @@ void probability_ill_v(item_t *items, size_t num_items, int age)
 void get_element_by_id_v(item_t *items, size_t num_items, int id)
 {
     inicio1=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
 
     printf("Id consultado: %d\n",id);
@@ -180,32 +181,99 @@ void get_element_by_id_v(item_t *items, size_t num_items, int id)
     
     fclose(fp);
 }
+/*
+void inser_in_half_v(item_t **items, size_t num_items){
+    // Crear un nuevo vector
+    item_t *new_items = malloc((num_items + 1) * sizeof(item_t));
+    
+    memcpy(new_items, *items, (num_items / 2) * sizeof(item_t));
+    
+    // Insertar la nueva estructura, solo como prueba
+    new_items[num_items / 2].id = 75000;
+    new_items[num_items / 2].city = D;
+    new_items[num_items / 2].age = 30;
+    new_items[num_items / 2].gender = FEMALE;
+    new_items[num_items / 2].income = 50000;
+    new_items[num_items / 2].illness = true;
+    
+    // Copiar los elementos desde la segunda mitad del vector original al final del nuevo vector
+    for (int i = num_items / 2 + 1; i <= num_items; i++) {
+        new_items[i].id = (*items)[i-1].id + 1;
+        new_items[i].city = (*items)[i-1].city;
+        new_items[i].age = (*items)[i-1].age;
+        new_items[i].gender = (*items)[i-1].gender;
+        new_items[i].income = (*items)[i-1].income;
+        new_items[i].illness = (*items)[i-1].illness;
+    }
+    
+    // Actualizar el tamaño del nuevo vector
+    num_items++;
+    
+    // Liberar la memoria asignada al vector original
+    free(*items);
+    
+   
+    *items = new_items;
+    
+}
+/*
+
 
 // Insertar un nuevo elemento en la mitad
+/*
 void inser_in_half_v(item_t *items, size_t num_items)
 {   
     inicio1=clock();
     FILE *fp = fopen("reporte.txt", "a");
 
-    char city_elem;
-    char gender_elem;
     unsigned int age_elem;
-    char illness_elem;
+    
     int income_elem;
 
     printf("\nIngresa nuevo elemento");
 
-    printf("\nIngrese ciudad");
-        scanf("%s", &city_elem);
-    printf("\nIngresa genero");
-        scanf("%s", &gender_elem);
-    printf("\nIngresa edad");
-        scanf("%d", &age_elem);
-    printf("\nIngresa enfermo?");
-        scanf("%s", &illness_elem);
-    printf("\nIngresa sueldo");
-        scanf("%d", &income_elem);
+    char *ciudades[8] = {"Dallas", "New York City", "Los Angeles", "Mountain View", "Boston", "Washington D.C.", "San Diego", "Austin"};
+    char *generos[3] = {"FEMALE", "MALE", "NO"};
+    char *illness[3] = {"false", "true", "fuzzy"};
 
+
+    // Pedir al usuario que seleccione una ciudad
+    int opcion;
+    printf("Seleccione una ciudad:\n");
+    for (int i = 0; i < 8; i++) {
+        printf("%d. %s\n", i + 1, ciudades[i]);
+    }
+    scanf("%d", &opcion);
+    char *city_elem = ciudades[opcion - 1];
+
+    // Pedir al usuario que seleccione la edad
+    printf("\nIngresa edad");
+    scanf("%d", &age_elem);
+
+    // Pedir al usuario que seleccione una genero
+    opcion;
+    printf("Seleccione el genero:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%d. %s\n", i + 1, generos[i]);
+    }
+    scanf("%d", &opcion);
+    char *gender_elem= generos[opcion - 1];
+
+    // Pedir al usuario que ingrese sueldo
+    printf("\nIngresa sueldo");
+    scanf("%d", &income_elem);
+
+    // Pedir al usuario que seleccione si está enfermo
+    opcion;
+    printf("Seleccione si está enfermo:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%d. %s\n", i + 1, illness[i]);
+    }
+    scanf("%d", &opcion);
+    char *illness_elem= illness[opcion - 1];
+
+
+/*
     for (int i=150001; i==75000; i--){
         items[i].id = items[i].id;
         items[i].age = items[i-1].age;
@@ -227,11 +295,12 @@ void inser_in_half_v(item_t *items, size_t num_items)
 	bool_t result_illness;
 
     items[75000].age = age_elem;
-    items[75000].city= result_city= get_city_t(&city_elem);
-    items[75000].gender= result_gender=get_gender_t(&gender_elem);
-    items[75000].illness= result_illness=get_illness_t(&illness_elem);
+    items[75000].city= result_city= get_city_t(city_elem);
+    items[75000].gender= result_gender=get_gender_t(gender_elem);
+    items[75000].illness= result_illness=get_illness_t(illness_elem);
     items[75000].income=income_elem;
-
+    
+    
     printf("Dato insertado correctamente\n");
     fprintf(fp, "Dato insertado correctamente\n");
 
@@ -244,72 +313,63 @@ void inser_in_half_v(item_t *items, size_t num_items)
     fclose(fp);
 
 }
+*/
 
 void report_by_city_age_v(item_t *items, size_t num_items, int edad_consulta)
 {   
     inicio1=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report "a");
     
     int count_p[9]={0};
 
     
-        for(int i=0; i=num_items; i++){
-            if(strcmp(city_names[items[i].city],"Dallas")==0){
-                if(items[i].age == edad_consulta){
+    for(int i=0; i < num_items; i++){
+        if(strcmp(city_names[items[i].city],"Dallas")==0){
+            if(items[i].age == edad_consulta){
                 count_p[0]++;
-                }	
-            }
-            if(strcmp(city_names[items[i].city],"New York City")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[1]++;		
-                }
-                }
-
-            if(strcmp(city_names[items[i].city],"Los Angeles")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[2]++;
-                }
-                }
-
-            if(strcmp(city_names[items[i].city],"Mountain View")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[3]++;
-                }
-                
-                }
-            if(strcmp(city_names[items[i].city], "Boston")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[4]++;
-                }
-                
-                }
-            if(strcmp(city_names[items[i].city],"Washington D.C.")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[5]++;
-                }
-                
-                }
-            if(strcmp(city_names[items[i].city],"San Diego")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[6]++;
-                }
-                
-                }
-            if(strcmp(city_names[items[i].city],"Austin")==0){
-                if(items[i].age == edad_consulta){
-                count_p[7]++;
-                }
-                
-                }
-            if(strcmp(city_names[items[i].city],"Not found")==0){
-                if(items[i].age == edad_consulta){
-                    count_p[8]++;
-                }
-                
-                }
-
+            }	
         }
-        
+        if(strcmp(city_names[items[i].city],"New York City")==0){
+            if(items[i].age == edad_consulta){
+                count_p[1]++;		
+            }
+        }
+        if(strcmp(city_names[items[i].city],"Los Angeles")==0){
+            if(items[i].age == edad_consulta){
+                count_p[2]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city],"Mountain View")==0){
+            if(items[i].age == edad_consulta){
+                count_p[3]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city], "Boston")==0){
+            if(items[i].age == edad_consulta){
+                count_p[4]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city],"Washington D.C.")==0){
+            if(items[i].age == edad_consulta){
+                count_p[5]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city],"San Diego")==0){
+            if(items[i].age == edad_consulta){
+                count_p[6]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city],"Austin")==0){
+            if(items[i].age == edad_consulta){
+                count_p[7]++;
+            }
+        }
+        if(strcmp(city_names[items[i].city],"Not found")==0){
+            if(items[i].age == edad_consulta){
+                count_p[8]++;
+            }
+        }
+    }
     printf("La cantidad de personas por ciudad en la edad de: %d\n", edad_consulta );
     printf("Dallas %d\n", count_p[0]);
     printf("New York City %d\n", count_p[1]);

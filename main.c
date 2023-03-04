@@ -1,16 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <sys/types.h>
 #include "linkedlist.h"
 #include "base_struct.h"
 #include "vector_struct.h"
 #include "menu.h"
+#include "report.h"
 
 const int SIZE = 150000;
+char* name_report;
 
 int main(int argc, char *argv[])
-{
+{	
+
+	//Creación del archivo para el reporte
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char filename[100];
+    sprintf(filename, "reporte_%d-%02d-%02d_%02d-%02d-%02d.txt", 
+    tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    name_report = filename;
+
 	FILE *fp;
 	char *line = NULL;
 	size_t len = 0;
@@ -89,9 +101,9 @@ int main(int argc, char *argv[])
 		line_number++;
 	}
 	
-	/*
-	//Si deseo imprimir todo el vector
 	
+	//Si deseo imprimir todo el vector
+	/*
 	for (int i = 0; i < SIZE; i++) {
   	printf("Imprimiendo el sujeto:%d\n", i+1);
 	printf("id= %d\n", items[i].id);
@@ -161,9 +173,11 @@ int main(int argc, char *argv[])
 				printf("ERROR. Opcion Inválida\n");
 		}
 	}while (opcion != 3);
+
+	remove(filename);//Eliminar el archivo generado
 		
-			fclose(fp);
-			if (line)
-				free(line);
-			exit(EXIT_SUCCESS);
+	fclose(fp);
+	if (line)
+	free(line);
+	exit(EXIT_SUCCESS);
 }

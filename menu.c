@@ -4,8 +4,7 @@
 #include "base_struct.h"
 #include "vector_struct.h"
 #include "linkedlist.h"
-
-char reporte[5000];
+#include "report.h"
 
 void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *list)
 {
@@ -169,8 +168,8 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
                 // Opción para numeral5Vector
                 printf("función para vector\n");
 
-                
-                inser_in_half_v(items, num_items);//5
+                //item_t **items2=&items;
+                //inser_in_half_v(items2, num_items);//5
 }
             else
             {

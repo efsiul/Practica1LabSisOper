@@ -4,6 +4,7 @@
 #include <time.h>
 #include <sys/types.h>
 #include "linkedlist.h"
+#include "report.h"
 
 clock_t inicio, fin;
 double tiempo;
@@ -64,7 +65,7 @@ void print_list(node_t *head)
 void report_by_city(node_t *head)
 {   
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
     node_t *current = head;
@@ -101,7 +102,7 @@ en una determinada ciudad y que tienen entre X y Y años (X y Y incluidos).
 void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_age)
 {   
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     int total_income = 0;
     int count = 0;
@@ -157,7 +158,7 @@ void avg_income_by_city_age(node_t *head, char *city_name, int min_age, int max_
 void probability_ill(node_t *head, int age)
 {   
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     node_t *current = head;
     int count = 0;
@@ -210,7 +211,7 @@ void probability_ill(node_t *head, int age)
 void get_element_by_id(node_t *head, int id)
 {
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     node_t *current = head;
     int count = 0;
@@ -243,7 +244,7 @@ void get_element_by_id(node_t *head, int id)
 void inser_in_half(node_t *head, item_t data)
 {   
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     node_t *current, *previous;
     int half = 75000;
@@ -285,7 +286,7 @@ void inser_in_half(node_t *head, item_t data)
 void report_by_city_age(node_t *head, int age)
 {   
     inicio=clock();
-    FILE *fp = fopen("reporte.txt", "a");
+    FILE *fp = fopen(name_report, "a");
 
     int count[9] = {0}; // Inicializa el contador de cada ciudad en 0
     node_t *current = head;
@@ -304,10 +305,12 @@ void report_by_city_age(node_t *head, int age)
 
     // Imprime el reporte
     printf("Report of %d years old person by City:\n", age);
+    fprintf(fp, "Report of %d years old person by City:\n", age);
+
     for (int i = 0; i <= 8; i++)
     {
         printf("%s: %d\n", city_names[i], count[i]);
-         fprintf(fp, "%s: %d\n", city_names[i], count[i]);
+        fprintf(fp, "%s: %d\n", city_names[i], count[i]);
     }
     fin=clock();
     tiempo=(double)(fin - inicio)/ CLOCKS_PER_SEC;
