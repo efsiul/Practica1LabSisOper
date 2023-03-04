@@ -54,7 +54,7 @@ item_t select_data()
 void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *list)
 {
     int opcion;
-
+    int resultado;
     do
     {
         printf("\n"
@@ -69,7 +69,13 @@ void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *l
                "\n");
 
         printf("Seleccione una opcion: ");
-        scanf("%d", &opcion);
+        while (scanf("%d", &opcion) != 1)
+        {
+            // Si el valor ingresado no es un entero, se repite la solicitud
+            printf("Ingrese un valor entero valido: ");
+            while (getchar() != '\n')
+                ; // Limpia el buffer del teclado
+        }
 
         switch (opcion)
         {

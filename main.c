@@ -118,7 +118,14 @@ int main(int argc, char *argv[])
 		printf("2. Menu para trabajar con Listas Ligadas \n");
 		printf("3. SALIR \n");
 
-		scanf("%d", &opcion);
+		while (scanf("%d", &opcion) != 1)
+		{
+			// Si el valor ingresado no es un entero, se repite la solicitud
+			printf("Ingrese un valor entero valido: ");
+			while (getchar() != '\n')
+				; // Limpia el buffer del teclado
+		}
+		
 		if (opcion == 1)
 		{
 			strcpy(submenu, "Vectores");
