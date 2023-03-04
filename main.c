@@ -1,15 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <sys/types.h>
 #include "linkedlist.h"
 #include "base_struct.h"
+#include "vector_struct.h"
 #include "menu.h"
+#include "report.h"
 
 const int SIZE = 150000;
+char *name_report;
 
 int main(int argc, char *argv[])
 {
+
+	// Creación del archivo para el reporte
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	char filename[100];
+	sprintf(filename, "reporte_%d-%02d-%02d_%02d-%02d-%02d.txt",
+			tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	name_report = filename;
+
 	FILE *fp;
 	char *line = NULL;
 	size_t len = 0;
@@ -28,7 +41,7 @@ int main(int argc, char *argv[])
 	init_list(&list);
 
 	// Creación del vector
-	item_t items[SIZE];
+	item_t *items = (item_t *)malloc(SIZE * sizeof(item_t));
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
 		if (line_number > 0)
@@ -89,91 +102,62 @@ int main(int argc, char *argv[])
 	}
 
 	// INTRODUCCIÓN AL MENÚ DE OPCIONES
-	// int opcion;
-	// size_t num_items = sizeof(items) / sizeof(element); // En caso de recalcular el tamaño del vector
+	int opcion;
+	char *submenu = malloc(12);
+	size_t num_items = (SIZE * sizeof(item_t)) / sizeof(element); // En caso de recalcular el tamaño del vector
 
-	// do
-	// {
+	do
+	{
+		printf("     MENU PRINCIPAL\n"
+			   "\n"
+			   "################################\n"
+			   "#    SELECCIONE UNA OPCIÓN     #\n"
+			   "################################\n"
+			   "\n");
+		printf("1. Menu para trabajar con Vectores \n");
+		printf("2. Menu para trabajar con Listas Ligadas \n");
+		printf("3. SALIR \n");
 
-	// 	printf("SELECCIONE UNA OPCIÓN ENTRE: \n");
-	// 	printf("1. Numeral 1 - VECTOR\n");
-	// 	printf("2. Numeral 1 - LISTA LIGADA\n");
-	// 	printf("3. Numeral 2 - VECTOR\n");
-	// 	printf("4. Numeral 2 - LISTA LIGADA\n");
-	// 	printf("5. Numeral 3 - VECTOR\n");
-	// 	printf("6. Numeral 3 - LISTA LIGADA\n");
-	// 	printf("7. Numeral 4 - VECTOR\n");
-	// 	printf("8. Numeral 4 - LISTA LIGADA\n");
-	// 	printf("9. Numeral 5 - VECTOR\n");
-	// 	printf("10. Numeral 5 - LISTA LIGADA\n");
-	// 	printf("11. Numeral 6 - VECTOR\n");
-	// 	printf("12. Numeral 6 - LISTA LIGADA\n");
-	// 	printf("13. Numeral 7 - GENERAR REPORTE\n");
-	// 	printf("14. SALIR \n");
+		scanf("%d", &opcion);
+		if (opcion == 1)
+		{
+			strcpy(submenu, "Vectores");
+		}
+		else
+		{
+			strcpy(submenu, "ListaLigada");
+		}
 
-	// 	scanf("%d", &opcion);
+		switch (opcion)
+		{
 
-	// 	switch (opcion)
-	// 	{
-	// 	case 1:
-	// 		numeral1Vector(items, num_items);
-	// 		break;
-	// 	case 2:
-	// 		numeral1LL();
-	// 		break;
-	// 	case 3:
-	// 		numeral2Vector();
-	// 		break;
-	// 	case 4:
-	// 		numeral2LL();
-	// 		break;
-	// 	case 5:
-	// 		numeral3Vector();
-	// 		break;
-	// 	case 6:
-	// 		numeral3LL();
-	// 		break;
-	// 	case 7:
-	// 		numeral4Vector();
-	// 		break;
-	// 	case 8:
-	// 		numeral4LL();
-	// 		break;
-	// 	case 9:
-	// 		numeral5Vector();
-	// 		break;
+		case 1:
+			printf("\n"
+				   "####################################\n"
+				   "#           MENU VECTORES          #\n"
+				   "####################################\n"
+				   "\n");
+			selectMenu(submenu, items, num_items, &list);
+			break;
+		case 2:
+			printf("\n"
+				   "####################################\n"
+				   "#        MENU LISTAS LIGADAS       #\n"
+				   "####################################\n"
+				   "\n");
+			selectMenu(submenu, items, num_items, &list);
+			break;
+		case 3:
+			free(items);
+			free(submenu);
+			printf("Saliendo del programa...\n");
+			break;
+		default:
+			printf("ERROR. Opcion Inválida\n");
+		}
+	} while (opcion != 3);
 
-	// 	case 10:
-	// 		numeral15LL();
-	// 		break;
-	// 	case 11:
-	// 		numeral6Vector();
-	// 		break;
-
-	// 	case 12:
-	// 		numeral6LL();
-	// 		break;
-
-	// 	case 13:
-	// 		generarReporte();
-	// 		break;
-
-	// 	case 14:
-	// 		printf("Saliendo del programa...\n");
-	// 		break;
-
-	// 	default:
-	// 		printf("ERROR. Opcion Inválida\n");
-	// 	}
-	// } while (opcion != 14);
-
-	// Si deseo imprimir toda la ListaL
-	// print_list(&list);
-	report_by_city(list.head);
-	printf("--------------------------------------------------\n");
-	printf("el promedio de ingreso es %.2f\n", avg_income_by_city_age(&list, "Dallas", 20, 58));
-	printf("--------------------------------------------------\n");
-	printf("La probabilidad de estar enfermo a tal edad es: %.2f\n", probability_ill(list.head, 30));
+	remove(filename); // Eliminar el archivo generado
 
 	fclose(fp);
 	if (line)

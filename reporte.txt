@@ -1,1 +1,0 @@
-Tiempo de ejecución para el Numeral 1 - VECTOR, es de: 0.584339000 segundos.
