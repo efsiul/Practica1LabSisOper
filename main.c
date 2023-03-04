@@ -1,15 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <sys/types.h>
 #include "linkedlist.h"
 #include "base_struct.h"
+#include "vector_struct.h"
 #include "menu.h"
+#include "report.h"
 
 const int SIZE = 150000;
+char *name_report;
 
 int main(int argc, char *argv[])
 {
+
+	// Creación del archivo para el reporte
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+	char filename[100];
+	sprintf(filename, "reporte_%d-%02d-%02d_%02d-%02d-%02d.txt",
+			tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	name_report = filename;
+
 	FILE *fp;
 	char *line = NULL;
 	size_t len = 0;
@@ -28,7 +41,7 @@ int main(int argc, char *argv[])
 	init_list(&list);
 
 	// Creación del vector
-	item_t items[SIZE];
+	item_t *items = (item_t *)malloc(SIZE * sizeof(item_t));
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
 		if (line_number > 0)
@@ -87,80 +100,65 @@ int main(int argc, char *argv[])
 		line = NULL;
 		line_number++;
 	}
-	
-	/*
-	//Si deseo imprimir todo el vector
-	
-	for (int i = 0; i < SIZE; i++) {
-  	printf("Imprimiendo el sujeto:%d\n", i+1);
-	printf("id= %d\n", items[i].id);
-	printf("city= %s\n", city_names[items[i].city]);
-	printf("Gender= %s\n", gender_names[items[i].gender]);
-	printf("Age = %d\n", items[i].age);
-	printf("Income %d\n", items[i].income);
-	printf("Illness = %s\n", illness_values[items[i].illness]);
-	printf("-----------------------------------------------------\n\n");
-	}
-	*/
-	
-	//Si deseo imprimir toda la ListaL
-	//print_list(&list);
-	
-	//INTRODUCCIÓN AL MENÚ DE OPCIONES
+
+	// INTRODUCCIÓN AL MENÚ DE OPCIONES
 	int opcion;
 	char *submenu = malloc(12);
-	size_t num_items = sizeof(items) / sizeof(element);//En caso de recalcular el tamaño del vector
-	
-	do{
-		printf("     MENU PRINCIPAL\n"\
-		"\n"\
-		"################################\n"\
-		"#    SELECCIONE UNA OPCIÓN     #\n"\
-		"################################\n"
-		"\n");
+	size_t num_items = (SIZE * sizeof(item_t)) / sizeof(element); // En caso de recalcular el tamaño del vector
+
+	do
+	{
+		printf("     MENU PRINCIPAL\n"
+			   "\n"
+			   "################################\n"
+			   "#    SELECCIONE UNA OPCIÓN     #\n"
+			   "################################\n"
+			   "\n");
 		printf("1. Menu para trabajar con Vectores \n");
 		printf("2. Menu para trabajar con Listas Ligadas \n");
 		printf("3. SALIR \n");
 
 		scanf("%d", &opcion);
-		if (opcion==1){
+		if (opcion == 1)
+		{
 			strcpy(submenu, "Vectores");
 		}
-		else{
+		else
+		{
 			strcpy(submenu, "ListaLigada");
 		}
 
 		switch (opcion)
 		{
-			
-			case 1:
-				printf("\n"\
-				"####################################\n"\
-				"#           MENU VECTORES          #\n"\
-				"####################################\n"\
-				"\n"\
-				);
-				selectMenu(submenu, items, num_items);
-				break;
-			case 2:
-				printf("\n"\
-				"####################################\n"\
-				"#        MENU LISTAS LIGADAS       #\n"\
-				"####################################\n"\
-				"\n"\
-				);
-				selectMenu(submenu, items, num_items);
-				break;
-			case 3:
-				printf("Saliendo del programa...\n");
-				break;
-			default:
-				printf("ERROR. Opcion Inválida\n");
+
+		case 1:
+			printf("\n"
+				   "####################################\n"
+				   "#           MENU VECTORES          #\n"
+				   "####################################\n"
+				   "\n");
+			selectMenu(submenu, items, num_items, &list);
+			break;
+		case 2:
+			printf("\n"
+				   "####################################\n"
+				   "#        MENU LISTAS LIGADAS       #\n"
+				   "####################################\n"
+				   "\n");
+			selectMenu(submenu, items, num_items, &list);
+			break;
+		case 3:
+			printf("Saliendo del programa...\n");
+			break;
+		default:
+			printf("ERROR. Opcion Inválida\n");
 		}
-	}while (opcion != 3);
-		
-			fclose(fp);
-			if (line)
-				free(line);
-			exit(EXIT_SUCCESS);
+	} while (opcion != 3);
+
+	remove(filename); // Eliminar el archivo generado
+
+	fclose(fp);
+	if (line)
+		free(line);
+	exit(EXIT_SUCCESS);
 }

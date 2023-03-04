@@ -1,20 +1,9 @@
 #ifndef __MENU_H_
 #define __MENU_H_
 #include "base_struct.h"
+#include "linkedlist.h"
+#include "vector_struct.h"
 
-void selectMenu();
-void numeral1Vector(item_t *, size_t num_items);
-void numeral1LL();
-void numeral2Vector();
-void numeral2LL();
-void numeral3Vector();
-void numeral3LL();
-void numeral4Vector();
-void numeral4LL();
-void numeral5Vector();
-void numeral15LL();
-void numeral6Vector();
-void numeral6LL();
-void generarReporte();
+void selectMenu(char *submenu, item_t *items, size_t num_items, linked_list_t *list);
 
 #endif
